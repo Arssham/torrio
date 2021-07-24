@@ -1,0 +1,23 @@
+language: python
+python:
+  - "3.9"
+
+before_install:
+  - pip install poetry
+
+install:
+  - poetry install
+
+jobs:
+  include:
+    - stage: test
+      script:
+        - poetry run pytest
+    - stage: lint
+      script:
+        - poetry run mypy torrio/
+        - poetry run flake8 torrio/
+
+notifications:
+  on_success: never
+  on_failure: never
